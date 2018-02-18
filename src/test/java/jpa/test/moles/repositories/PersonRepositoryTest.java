@@ -1,6 +1,7 @@
 package jpa.test.moles.repositories;
 
 import jpa.test.moles.entities.Person;
+import jpa.test.moles.jpaSpecyfications.PersonSpecifications;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,8 +41,14 @@ public class PersonRepositoryTest {
     }
 
     @Test
-    public void findByNameLike_findByName() {
+    public void findByNameLike_findPersonByName() {
         List<Person> personList = personRepository.findByNameLike(TEST);
         Assert.assertEquals(TEST, personList.get(0).getName());
+    }
+
+    @Test
+    public void findByNameUseSpecyfication_findPersonByName(){
+        List<Person> all = personRepository.findAll(PersonSpecifications.findByName(TEST));
+        Assert.assertEquals(TEST, all.get(0).getName());
     }
 }
